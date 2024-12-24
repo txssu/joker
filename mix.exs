@@ -7,6 +7,7 @@ defmodule Joker.MixProject do
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -22,7 +23,18 @@ defmodule Joker.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:styler, "~> 1.2", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      ci: [
+        "compile --all-warnings --warnings-as-errors",
+        "format --check-formatted",
+        "credo --strict"
+      ]
     ]
   end
 end
