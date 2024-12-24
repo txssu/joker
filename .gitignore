@@ -29,3 +29,6 @@ joker-*.tar
 # Dialyzer
 /priv/plts/*.plt
 /priv/plts/*.plt.hash
+
+# Local config
+/config/local.exs

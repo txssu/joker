@@ -1,20 +1,26 @@
 defmodule Joker.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
 
   @impl Application
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Joker.Worker.start_link(arg)
-      # {Joker.Worker, arg}
-    ]
+    children = maybe_bot_children()
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Joker.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp maybe_bot_children do
+    if Application.get_env(:joker, :start_bot?, true) do
+      token = Application.fetch_env!(:joker, JokerBot.Dispatcher)[:token]
+
+      [
+        ExGram,
+        {JokerBot.Dispatcher, [method: :polling, token: token]}
+      ]
+    else
+      []
+    end
   end
 end

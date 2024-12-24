@@ -29,6 +29,14 @@ defmodule Joker.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      # Mics
+      {:typedstruct, "~> 0.5"},
+      # ExGram
+      {:ex_gram, "~> 0.53"},
+      {:tesla, "~> 1.2"},
+      {:hackney, "~> 1.12"},
+      {:jason, ">= 1.0.0"},
+      # Code Quality
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:styler, "~> 1.2", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
@@ -38,6 +46,7 @@ defmodule Joker.MixProject do
 
   defp aliases do
     [
+      run: ["run --no-halt"],
       ci: [
         "compile --all-warnings --warnings-as-errors",
         "format --check-formatted",
