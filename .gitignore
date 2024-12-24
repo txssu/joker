@@ -21,3 +21,11 @@ joker-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Private keys
+.env
+*.env.*
+
+# Dialyzer
+/priv/plts/*.plt
+/priv/plts/*.plt.hash

@@ -8,7 +8,13 @@ defmodule Joker.MixProject do
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_add_apps: [:mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        plt_core_path: "priv/plts/core.plt",
+        ignore_warnings: ".dialyzer_ignore.exs"
+      ]
     ]
   end
 
@@ -24,7 +30,8 @@ defmodule Joker.MixProject do
   defp deps do
     [
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:styler, "~> 1.2", only: [:dev, :test], runtime: false}
+      {:styler, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -33,7 +40,8 @@ defmodule Joker.MixProject do
       ci: [
         "compile --all-warnings --warnings-as-errors",
         "format --check-formatted",
-        "credo --strict"
+        "credo --strict",
+        "dialyzer"
       ]
     ]
   end
